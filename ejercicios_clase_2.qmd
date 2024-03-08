@@ -51,6 +51,17 @@ library(readxl)
 
 [**Abril 2024**]{.big-par .center-justified}
 
+## Contenidos
+::: {.incremental .small-par}
+- Operador pipe
+- Trabajo básico con filas
+- Trabajo básico con columnas
+- Mutate
+- if_else
+- case_when
+- Ejercicios
+:::
+
 ## Operador pipe %>% 
 ::: {.incremental .small-par}
 - Primero instalaremos la librería dplyr de la siguiente manera:

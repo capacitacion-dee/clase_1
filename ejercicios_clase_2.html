@@ -411,6 +411,20 @@
 <p><span class="big-par center-justified"><strong>Nivel básico</strong></span></p>
 <p><span class="big-par center-justified"><strong>Abril 2024</strong></span></p>
 </section>
+<section id="contenidos" class="slide level2">
+<h2>Contenidos</h2>
+<div class="small-par">
+<ul>
+<li class="fragment">Operador pipe</li>
+<li class="fragment">Trabajo básico con filas</li>
+<li class="fragment">Trabajo básico con columnas</li>
+<li class="fragment">Mutate</li>
+<li class="fragment">if_else</li>
+<li class="fragment">case_when</li>
+<li class="fragment">Ejercicios</li>
+</ul>
+</div>
+</section>
 <section id="operador-pipe" class="slide level2">
 <h2>Operador pipe %&gt;%</h2>
 <div class="small-par">
@@ -790,11 +804,11 @@
 <pre><code># A tibble: 5 x 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
-1  2013     1     5           1344               817           327
-2  2013     6    10            622               630            -8
-3  2013     8    26           1708              1705             3
-4  2013     9    19           2055              1900           115
-5  2013     9    25           2022              2025            -3
+1  2013     4    21           1525              1530            -5
+2  2013     5    23            650               653            -3
+3  2013    11    20           1545              1555           -10
+4  2013     9    24           1424              1423             1
+5  2013     4    10           1542              1515            27
 # i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
@@ -1886,15 +1900,15 @@
 <pre><code># A tibble: 10 x 2
      mes mes_nombre
    &lt;dbl&gt; &lt;chr&gt;     
- 1    12 Diciembre 
- 2     3 Marzo     
- 3    12 Diciembre 
- 4     6 Junio     
- 5     9 Septiembre
- 6     1 Enero     
- 7     8 Agosto    
- 8     8 Agosto    
- 9     4 Abril     
+ 1    11 Noviembre 
+ 2     7 Julio     
+ 3     8 Agosto    
+ 4     4 Abril     
+ 5    11 Noviembre 
+ 6     9 Septiembre
+ 7     1 Enero     
+ 8    12 Diciembre 
+ 9    12 Diciembre 
 10    12 Diciembre </code></pre>
 </div>
 </div>
@@ -1920,16 +1934,16 @@
 <pre><code># A tibble: 10 x 2
    distancia tramo  
        &lt;dbl&gt; &lt;chr&gt;  
- 1      1400 mediano
+ 1       200 corto  
  2       764 corto  
- 3       628 corto  
- 4       733 corto  
- 5       214 corto  
- 6       213 corto  
- 7       488 corto  
- 8       748 corto  
- 9       888 corto  
-10      2586 mediano</code></pre>
+ 3       431 corto  
+ 4       963 corto  
+ 5      1389 mediano
+ 6      1008 mediano
+ 7       292 corto  
+ 8       711 corto  
+ 9       277 corto  
+10       738 corto  </code></pre>
 </div>
 </div>
 </div>
@@ -1939,7 +1953,7 @@
 <div class="small-par">
 <p>Usando un solo mutate:</p>
 <ol type="1">
-<li class="fragment">Modifique la columna horas_tv.Si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original</li>
+<li class="fragment">Modifique la columna horas_tv. Si horas tv es NA reemplazar por un 0; de lo contrario, se mantiene el valor original</li>
 <li class="fragment">Haga lo mismo para edad</li>
 <li class="fragment">Genere una columna llamada horas_tv_promedio que sea el promedio de horas_tv</li>
 <li class="fragment">Genere una columnna llamada mediana_edad que sea la mediana de la variable edad (la función es median())</li>
