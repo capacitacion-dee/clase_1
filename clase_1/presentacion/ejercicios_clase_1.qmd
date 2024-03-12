@@ -1,0 +1,987 @@
+---
+# title: "Mesa de Procesamiento REP"
+# author: "Febrero 2024"
+format:
+  revealjs:
+    auto-stretch: false
+    margin: 0
+    slide-number: true
+    scrollable: true
+    preview-links: auto
+    logo: imagenes/logo_portada2.png
+    css: ine_quarto_styles.css
+    # footer: <https://quarto.org>
+---
+
+```{r librerias}
+#| echo: FALSE
+#| output: FALSE
+#| eval: TRUE
+library(dplyr)
+library(datos)
+```
+
+#
+
+<!---
+# TODO: this does not work
+.linea-superior[]
+.linea-inferior[] 
+--->
+
+<!---
+# TODO: this does not work
+![](imagenes/logo_portada2.png){.center style="width: 20%;"}   
+--->
+
+[]{.linea-superior} 
+[]{.linea-inferior} 
+
+<!---
+<img src="imagenes/logo_portada2.png" style="width: 20%"/>  
+--->
+
+<img src="imagenes/logo_portada2.png" width="20%"/>  
+
+[**Capacitación en R y herramientas de productividad**]{.big-par .center-justified}
+
+[**Nivel básico**]{.big-par .center-justified}
+
+[**Abril 2024**]{.big-par .center-justified}
+
+## Contenidos
+
+::: {.incremental .small-par}
+- Variables y tipos de datos
+- Vectores
+- Dataframes
+- Importación de datos
+- Ejercicios
+:::
+
+## Variables y tipos de datos
+
+::: {.incremental .small-par}
+
+- En R las variables pueden guardar distintos tipos de datos
+- La manera más sencilla de asignar un objeto a una variable es mediante la función "<-"
+- Los tipos de datos más utilizados en R son:
+- **numeric**
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+numero <- 6.5
+class(numero)
+numero
+```
+
+. . .
+
+::: {.incremental .small-par}
+
+- **integer**
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+int <- 8L
+class(int)
+int
+```
+. . .
+
+::: notes
+
+- Las variables tipo numeric hacen referencia números reales
+- Las variables tipo integer hacen referencia a números enteros (L le dice a R que guarde la variable como número entero)
+
+:::
+
+## Variables y tipos de datos
+
+::: {.incremental .small-par}
+
+- También podemos hacer operaciones con las variables
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+numero + int
+numero * int
+numero ^ int
+int - numero
+```
+
+. . .
+
+::: {.incremental .small-par}
+
+- **character**
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+str <- "texto"
+class(str)
+str
+```
+. . .
+
+::: notes
+
+- Para especificar a R que la información contenida en un objeto está en formato de texto, se usan las comillas dobles ( " ) o las comillas simples ( ' )
+
+:::
+
+## Variables y tipos de datos
+
+::: {.incremental .small-par}
+
+- **logical**
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+verdadero <- TRUE
+falso <- FALSE
+class(verdadero)
+verdadero
+```
+. . .
+
+::: {.incremental .small-par}
+
+**Operadores lógicos**
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+verdadero & falso 
+verdadero | falso
+```
+. . .
+
+::: notes
+
+- Son variables que se evalúan como TRUE o FALSE
+- Los operadores lógicos son usados para operaciones de álgebra Booleana, es decir, para describir relaciones lógicas, expresadas como verdadero (TRUE) o falso (FALSO).
+
+:::
+
+## Variables y tipos de datos
+
+::: {.incremental .small-par}
+
+**Operadores relacionales** 
+
+- Podemos comparar la igualdad lógica entre dos valores mediante "=="
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+3 == 5
+7 == 7
+```
+. . .
+
+::: {.incremental .small-par}
+
+- Podemos evaluar la no igualdad con "!=" (es distinto de)
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+3 != (1+2)
+```
+. . .
+
+::: {.incremental .small-par}
+
+- Podemos realizar comparaciones de orden
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+2 >= -10
+8 < -1
+```
+. . .
+
+
+## Vectores
+
+::: {.incremental .small-par}
+
+- Corresponden a arreglos unidimensionales que almacenan un **mismo tipo de dato** en cada una de sus entradas
+- Todo vector en R se puede declarar con la letra "c" seguido de los elementos que lo componen entre paréntesis y separados por comas
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Declaración de dos vectores
+v1 <- c(1,1,2,3,5,8,13)
+v1
+
+v2 <- 1:100 # Retorna un vector de enteros consecutivos del 1 al 100.
+v2
+```
+. . .
+
+::: notes
+- En R, así como en la mayoría de los lenguajes de programación, uno de los objetos más usuales para almacenar información son los vectores
+- En este ejemplo estamos creando un vector numérico llamado v1 utilizando el operador c() que se utiliza para combinar elementos en un vector.
+- En el segundo ejemplo estamos creando un vector llamado v2 que contiene una secuencia de números enteros que van desde el 1 al hasta al 100 utilizando el operador : que crea una secuencia de números consecutivos.
+:::
+
+## Vectores
+
+::: {.incremental .small-par}
+- Vectores lógicos
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+v_log <- c(T,T,F,T,F)
+v_log
+```
+. . .
+
+::: {.incremental .small-par}
+- Vectores de strings
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+palabras <- c("hola", "soy", "loreto")
+palabras
+```
+
+::: {.incremental .small-par}
+- Podemos asignar los nombres a los elementos de un vector usando la función names()
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+names(v1) <- c("n1","n2","n3","n4","n5","n6","n7")
+v1
+```
+::: {.incremental .small-par}
+- Podemos combinar vectores
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+v3 <- c(100,200)
+nuevo <- c(v1,v3)
+nuevo
+```
+
+::: notes
+- Utilizamos la función c nuevamente para concatenar lo elementos de v1 y v3 en el nuevo vector “nuevo”. Esto significa que el vector nuevo contendrá todos los elementos de v1 seguidos por todos los elementos de v3. 
+:::
+## Vectores
+
+::: {.incremental .small-par}
+- Largo de un vector
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+length(nuevo)
+```
+
+::: {.incremental .small-par}
+- Subset de vectores:
+  - Por posición
+  - Por comparaciones lógicas
+  - Por nombre
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Por posición
+v1
+v1[2]
+```
+
+::: notes
+- En este ejemplo estamos accediendo al segundo elemento del vector v1 que correspone al valor 1. Esto se hace escribiendo el número de la posición dentro de los paréntesis cuadrado.
+:::
+## Vectores
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Por posición
+# retorna los elementos de las casillas 1  y 4
+v1[c(1,4)]
+```
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+v1[c(3,4,5)]
+#NOTA 3:5, R lo interpreta como c(3,4,5)
+v1[3:5]
+```
+
+::: notes
+- Podemos obtener más de un elemento como en el primer ejemplo donde estamos retornando los elementos de las casillas 1 y 4 usando la función c(), es decir, estamos declarando un vector dentro de otro vector
+- El segundo ejemplo selecciona los elementos en las posiciones 3, 4 y 5 del vector v1
+- El tercero hace lo mismo pero utilizando el operador : que genera una secuencia de números consecutivos
+:::
+
+## Vectores
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Por comparaciones lógicas
+v1[v1>3] # Con esto podemos obtener las entradas que son mayores a 3.
+v1[!(v1 > 3)] # Estamos negando la expresión (v1 > 3)
+```
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Por nombre
+v1["n3"]  # Misma idea que la anterior, pero indicando el nombre de la casilla (con comillas)
+v1[c("n1","n2")]  # En el caso de requerir más de una celda. Se incluye un vector de nombres.
+```
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Ej: Queremos cambiar el elmento de posición 3, por un -999
+v1[3] <- -999
+v1
+```
+
+::: notes
+- El primer ejemplo toma el vector v1 y devuelve un nuevo vector que incluye solo aquellos elementos que son mayores que 3.
+- También podemos acceder a elementos de un vector usando los nombres de cada uno de sus elementos usando las comillas. Por ejemplo si queremos retornar el tercer elemento de v1 especificamos su nombre dentro de los paréntesis corchete, que en este caso es "n3"
+- Para cambiar un valor dentro de un vector primero designamos la posición que queremos cambiar y luego usando la flechita indicamos el valor para reemplazar
+:::
+
+## Ejercicio 1
+
+::: {.incremental .small-par}
+
+1. Genere un vector llamado mi_vector que contenga los números del 5 al 10
+
+2. Genere un vector llamado mi_vector2 que contenga las 5 primeras letras del abecedario
+
+3. Combine ambos vectores y llámelo mi_vector_combinado
+
+4. ¿Qué tipo de datos contiene mi_vector_combinado?
+
+5. ¿Cuál es el largo de mi_vector_combinado?
+
+6. De mi_vector_combinado substraiga los elementos 1 y 10
+
+7. Cambie el valor del elemento de la posición 10 por "z"
+
+:::
+
+## Solución ejercicio 1
+
+::: {.incremental .small-par}
+
+1. Genere un vector llamado mi_vector que contenga los números del 5 al 10
+
+:::
+
+. . .
+```{r ejercicio_1_a}
+#| echo: TRUE
+#| eval: TRUE
+mi_vector <- 5:10
+mi_vector
+```
+. . .
+
+::: {.incremental .small-par}
+
+2. Genere un vector llamado mi_vector2 que contenga las 5 primeras letras del abecedario
+
+:::
+
+. . .
+```{r ejercicio_1_b}
+#| echo: TRUE
+#| eval: TRUE
+mi_vector2 <- c("a","b","c","d","e")
+mi_vector2
+```
+. . .
+
+::: {.incremental .small-par}
+
+3. Combine ambos vectores y llámelo mi_vector_combinado
+
+:::
+
+. . .
+```{r ejercicio_1_c}
+#| echo: TRUE
+#| eval: TRUE
+mi_vector_combinado <- c(mi_vector, mi_vector2)
+mi_vector_combinado
+```
+. . .
+
+::: {.incremental .small-par}
+
+4. ¿Qué tipo de datos contiene mi_vector_combinado?
+
+:::
+
+. . .
+```{r ejercicio_1_d}
+#| echo: TRUE
+#| eval: TRUE
+class(mi_vector_combinado)
+```
+. . .
+
+## Solución ejercicio 1
+
+::: {.incremental .small-par}
+
+5. ¿Cuál es el largo de mi_vector_combinado?
+
+:::
+
+. . .
+```{r ejercicio_1_e}
+#| echo: TRUE
+#| eval: TRUE
+length(mi_vector_combinado)
+```
+. . .
+
+::: {.incremental .small-par}
+
+6. De mi_vector_combinado substraiga los elementos 1 y 10
+
+:::
+
+. . .
+```{r ejercicio_1_f}
+#| echo: TRUE
+#| eval: TRUE
+mi_vector_combinado[c(1,10)]
+```
+. . .
+
+::: {.incremental .small-par}
+
+7. Cambie el valor del elemento de la posición 10 por "z"
+
+:::
+
+. . .
+```{r ejercicio_1_g}
+#| echo: TRUE
+#| eval: TRUE
+mi_vector_combinado[10] <- "z"
+mi_vector_combinado
+```
+. . .
+
+## Dataframes
+::: {.incremental .small-par}
+- Los data frames son estructuras de datos de dos dimensiones (rectangulares) que pueden contener datos de diferentes tipos, por lo tanto, son heterogéneas
+- Esta estructura de datos es la más usada para realizar análisis de datos
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Instalar librería dplyr
+install.packages("dplyr")
+library(dplyr)
+
+# Ejemplo sencillo de definición de un data.frame
+# recordar que 1:3 es lo mismo que c(1,2,3)
+n1 <- 1:5
+let <- c("A", "A", "B", "C", "B")
+log <- c(TRUE, TRUE, FALSE, TRUE, FALSE)
+
+df <- data.frame(num = n1,
+                 letra = let ,
+                 bool = log)
+df
+```
+
+::: notes
+- Un dataframe se asemeja a una tabla o una hoja de cálculo en la que cada columna representa una variable y cada fila una observación
+- Para el trabajo de dataframes usaremos el paquete dplyr que es comunmente usado para operaciones de manipulación de datos
+- Primero debemos instalar el paquete dplyr usando la función install.packages. Luego cargamos el paquete usando la función library. 
+- No es necesario instalar el paquete cada vez que iniciemos sesión pero sí es necesario cargarlo
+- En el siguiente ejemplo, vamos a crear un dataframe usando tres vectores. El vector n1 contiene los número del 1 al 5, let es un vector del tipo character que contiene las letras A, A, B, C y B y el vector log contiene elementos del tipo logic.
+Usando la función data.frame podemos crear un dataframe a partir de estos vectores. En este ejemplo lo vamos a llamar df, el cual va a tener tres columnas: llamaremos num a la columna que contiene el vector n1, letra la columna que contiene el vector let y bool al vector que contiene los elementos tipo logic.
+:::
+
+## Dataframes
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Dimensión de un data.frame
+dim(df) 
+
+# Número de filas
+nrow(df)
+
+# Número de columnas
+ncol(df)
+
+# Nombre de las columnas
+names(df)
+
+# Función str() muestra la estructura interna de un objeto
+str(df)
+```
+
+## Dataframes
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Valores únicos de una variable
+distinct(df, letra)
+
+# Conteo de valores únicos de una variable
+count(df, letra)
+
+# Resumen estadístico
+summary(df)
+```
+
+::: notes
+La función summary() en R es una herramienta muy útil porque proporciona un resumen estadístico rápido de un data frame. 
+:::
+
+## Dataframes
+::: {.incremental .small-par}
+- Acceso a columnas de un data.frame
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Por posición 
+df[,3]
+
+# Por nombre 
+df[,"letra"]
+
+# Por $ 
+df$letra
+```
+
+::: notes
+- En R, podemos acceder a las columnas de dataframe utilizando su posición mediante la notación de corchetes.
+- Dado que los dataframes tienen dos dimensiones usamos la coma para especificar las filas y las columnas. El lado izquiero de la coma representa las filas y el derecho las columnas,.
+- En el ejemplo queremos obtener la columna tres de df. Si no ponemos nada en el lado de las filas entonces R entiende que queremos tomar todas las filas y el 3 después de la coma indica que queremos la tercera columna
+- Usando la misma lógica anterior podemos acceder a una columna mediante su nombre. Por ejemplo, queremos obtener solamente la columna “letra"
+- También podemos acceder a las columnas con el signo peso que es el operador de acceso a las columnas en R
+:::
+
+## Dataframes
+::: {.incremental .small-par}
+- Acceso a filas
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+df[2, ] # si dejamos en blanco después de la coma toma todas las columnas
+```
+
+::: {.incremental .small-par}
+- Acceso a filas y columnas
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Segunda columna y segunda fila
+df[2, 2]
+
+# Acceso a varias columnas y filas
+df[1:2, "bool"]
+df[1:2, c("letra", "bool")]
+
+```
+
+::: notes
+- Para acceder a las filas de un dataframe indicamos en el lado izquierdo de la coma la posición que deseamos. En el ejemplo, le estamos indicando a R que queremos la fila dos de df junto a todas sus columnas
+- En el segundo ejemplo le estamos diciendo a R que queremos la segunda fila y la segunda columna
+- Podemos acceder a varias columnas y filas. Por ejemplo, queremos las dos primeras filas de la columna “bool”
+- En el siguiente ejemplo estamos tomando las dos primeras filas y las columnas letra y bool.
+:::
+
+## Dataframes
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# Según condición
+df[df$num<3, ]
+# Otra forma...
+df[df[1]<3, ]
+# Según varias condiciones
+df[df$num<3 & df$letra=="A",]
+```
+
+::: notes
+- Podemos acceder a filas según condiciones
+- En el primer ejemplo estamos seleccionando aquellas filas donde la variable num sea menor que tres. Acá podemos usar el operador $ o los paréntesis corchete
+- En el siguiente ejemplo vemos que podemos acceder a filas según varias condiciones. Por ejemplo, queremos que R nos retorne las filas de df donde la variable num sea menor que 3 y la variable letra sea igual a "A"
+
+
+:::
+
+## Ejercicio 2
+
+::: {.incremental .small-par}
+
+- Vamos a trabajar con datos "juguete" de una encuesta sobre el tiempo que la gente mira la TV.
+
+- Para obtener los datos hay que instalar y cargar la siguiente librería:
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+install.packages("datos")
+library(datos)
+```
+
+::: {.incremental .small-par}
+
+- Guarde el dataframe "encuesta" como "datos".
+
+:::
+
+. . .
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+datos <- encuesta
+```
+
+
+## Ejercicio 2
+
+::: {.incremental .small-par}
+
+1. ¿Cuál es la dimensión del dataframe?
+
+2. ¿Cuáles son los nombres de las columnas?
+
+3. ¿Qué tipo de datos tiene? **Nota:** "Factor" es un tipo de dato que almacena variables categóricas o cuantitativas con un número finito de valores o niveles
+
+4. ¿Cuáles son los valores únicos de la variable estado_civil?
+
+5. ¿Cuántos datos existen para cada valor único de la variable estado_civil?
+
+6. Seleccione las columnas "anio", "edad" y "religion"
+
+7. Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
+
+8. Seleccione las filas donde horas_tv es menor a 5
+
+:::
+
+## Solución ejercicio 2
+
+::: {.incremental .small-par}
+
+1. ¿Cuál es la dimensión del dataframe?
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+dim(datos)
+```
+. . .
+
+::: {.incremental .small-par}
+
+2. ¿Cuáles son los nombres de las columnas?
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+names(datos)
+```
+. . .
+
+::: {.incremental .small-par}
+
+3. ¿Qué tipo de datos tiene? NOTA: int es la abreviatura para "integer" que significa número entero y "Factor" es un tipo de dato que almacena variables categóricas o cuantitativas con un número finito de valores o niveles
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+str(datos)
+```
+. . .
+
+## Solución ejercicio 2
+
+::: {.incremental .small-par}
+
+4. ¿Cuáles son los valores únicos de la variable estado_civil?
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+distinct(datos, estado_civil)
+```
+. . .
+
+## Solución ejercicio 2
+
+::: {.incremental .small-par}
+
+5. ¿Cuántos datos existen para cada valor único de estado_civil?
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+count(datos, estado_civil)
+```
+. . .
+
+## Solución ejercicio 2
+
+::: {.incremental .small-par}
+
+6. Seleccione las columnas "anio", "edad" y "religion"
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+datos[, c("anio", "edad", "religion")]
+```
+. . .
+
+## Solución ejercicio 2
+
+::: {.incremental .small-par}
+
+7. Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+datos[1:10, c("anio", "edad", "religion")]
+```
+. . .
+
+## Solución ejercicio 2
+
+::: {.incremental .small-par}
+
+8. Seleccione las filas donde horas_tv es menor a 5
+
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+datos[datos$horas_tv < 5,]
+```
+. . .
+
+## Importación de datos
+
+::: {.incremental .small-par}
+- Hasta ahora, hemos trabajado con datos ya existentes en R base o que hemos generado nosotros mismos, sin embargo, lo usual es que usemos datos almacenados en archivos fuera de R
+- Cuando importamos un archivo, estamos guardando su contenido en nuestra sesión como un objeto
+- R puede importar datos de una amplia variedad de tipos de archivo con las funciones en base además de que esta capacidad es ampliada con el uso de paquetes específicos tales como readxl y readr
+- Algunos ejemplos:
+:::
+
+. . .
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+# install.packages("readxl")
+# install.packages("readr")
+library(readxl)
+library(readr)
+
+# Usando read_excel
+vuelos <- read_excel("data/vuelos.xlsx")
+
+# Más argumentos...
+iac <- read_excel("data/descargas/series-mensuales-desde-enero-de-2018-a-la-fecha.xls", sheet = 2,
+                  range = "B6:F78",
+                  col_types = c("text", rep("numeric", 4)))
+
+# Usando read_csv
+cine <- read_csv("data/datosCine.csv")
+```
+
+::: notes
+- El paquete readxl permite importar hojas de un archivo excel y readr permite importar archivos de texto plano como csv
+- Para cargar un archivo con readxl o readr uno simplemente escribe la ruta donde está el archivo
+- readxl también tiene otros argumentos. Por ejemplo, queremos cargar el excel que coniene la serie del IAC desde enero de 2018 hasta la fecha. Acá podemos especificar la hoja que queremos importar usando el argumento sheet (si no lo hacemos toma la primera hoja por default). También podemos decirle el rango de la tabla que queremos que tome usando el argumento range y con col_types establecemos el tipo de variable de las columnas, por ejemplo texto o nueric
+- Los archivos de texto plano como los csv se pueden importar usando read_csv del paquete readr
+:::
+
+## Tarea 1
+
+::: {.incremental .small-par}
+- Para esta tarea utilizaremos la serie mensual del Índice de Actividad del Comercio (IAC), el cual compila la información de las ventas a precios constantes de las empresas clasificadas en esta actividad y que se encuentran instaladas en el país. Este índice entrega, mediante el análisis de variaciones interanuales y mensuales, una aproximación de la evolución mensual de la actividad del comercio.
+- El IAC puede ser segmentado en tres grandes divisiones: la división 45 abarca al comercio al por mayor y al por menor y reparación de vehículos automotores y motocicletas; división 46 incluye al comercio al por mayor, excepto el de vehículos automotores y motocicletas; y la división 47 que engloba al comercio al por menor, excepto el de vehículos automotores y motocicletas.
+:::
+
+## Tarea 1
+
+::: {.incremental .small-par}
+1. Carque la base "iac_division.rds" usando la función read_rds() del paquete readr. Llame al dataframe iac_division
+2. Utilice la funcion head(iac_division, 10) para observar las 10 primeras filas del dataframe
+3. ¿Qué puede decir de la base?
+4. ¿Cuál es la dimensión del dataframe?
+5. ¿Cuál es la estructura de la base y qué tipo de datos contiene?
+6. Cuente los valores únicos de la variable "anio"
+7. Substraiga la columna "iac_general" y llame al objeto "valores". ¿Cuál es la clase de "valores"?
+:::
+
+::: {.incremental .small-par}
+Utilizando el dataframe iac_division responda: 
+:::
+
+::: {.incremental .small-par}
+8. ¿En qué fecha el IAC fue menor a 80?
+9. ¿En qué fecha o fechas el IAC de la división 45 fue menor a 60?
+10. ¿Cuál fue el IAC en el mes de diciembre del 2023?
+:::
+
+#
+
+<!---
+# TODO: this does not work
+.linea-superior[]
+.linea-inferior[] 
+--->
+
+<!---
+# TODO: this does not work
+![](imagenes/logo_portada2.png){.center style="width: 20%;"}   
+--->
+
+<img src="imagenes/logo_portada2.png" width="20%"/>  
+
+[**Capacitación en R y herramientas de productividad**]{.big-par .center-justified}
+
+[**Nivel básico**]{.big-par .center-justified}
+
+[**Abril 2024**]{.big-par .center-justified}
+
+
+[]{.linea-superior} 
+[]{.linea-inferior} 
