@@ -446,9 +446,10 @@
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">library</span>(readxl)</span>
-<span id="cb2-2"><a href="#cb2-2"></a>vuelos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"clase_2/vuelos.xlsx"</span>)</span>
-<span id="cb2-3"><a href="#cb2-3"></a>vuelos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">install.packages</span>(<span class="st">"readxl"</span>)</span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="fu">library</span>(readxl)</span>
+<span id="cb2-3"><a href="#cb2-3"></a>vuelos <span class="ot">&lt;-</span> <span class="fu">read_excel</span>(<span class="st">"clase_2/vuelos.xlsx"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a>vuelos</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 336,776 x 19
     anio   mes   dia horario_salida salida_programada atraso_salida
@@ -502,6 +503,7 @@
 <aside class="notes">
 <ul>
 <li>Básicamente, lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función. Esto permite encadenar varias operaciones de manera más clara y concisa.</li>
+<li>En el ejemplo estamos aplicando la función head al dataframe vuelos</li>
 </ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
@@ -542,6 +544,21 @@
 #   hora &lt;dbl&gt;, minuto &lt;dbl&gt;, fecha_hora &lt;dttm&gt;</code></pre>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li>Lo anterior es lo mismo que insertar el dataframe vuelos dentro de la función head</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="operador-pipe-3" class="slide level2">
@@ -577,6 +594,21 @@
 16 YV          601</code></pre>
 </div>
 </div>
+<aside class="notes">
+<ul>
+<li>para esto aplicamos la función count a vuelos indicando el segundo argumento que es la variable que queremos contar que en este caso es aerolinea</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="operador-pipe-4" class="slide level2">
@@ -804,11 +836,11 @@
 <pre><code># A tibble: 5 x 19
    anio   mes   dia horario_salida salida_programada atraso_salida
   &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;          &lt;dbl&gt;             &lt;dbl&gt;         &lt;dbl&gt;
-1  2013     4    21           1525              1530            -5
-2  2013     5    23            650               653            -3
-3  2013    11    20           1545              1555           -10
-4  2013     9    24           1424              1423             1
-5  2013     4    10           1542              1515            27
+1  2013     9    24           1850              1850             0
+2  2013     2    13            805               730            35
+3  2013     7     1           1401              1235            86
+4  2013     1     5           1442              1445            -3
+5  2013     1    22           2044              2045            -1
 # i 13 more variables: horario_llegada &lt;dbl&gt;, llegada_programada &lt;dbl&gt;,
 #   atraso_llegada &lt;dbl&gt;, aerolinea &lt;chr&gt;, vuelo &lt;dbl&gt;, codigo_cola &lt;chr&gt;,
 #   origen &lt;chr&gt;, destino &lt;chr&gt;, tiempo_vuelo &lt;dbl&gt;, distancia &lt;dbl&gt;,
@@ -1900,16 +1932,16 @@
 <pre><code># A tibble: 10 x 2
      mes mes_nombre
    &lt;dbl&gt; &lt;chr&gt;     
- 1    11 Noviembre 
- 2     7 Julio     
- 3     8 Agosto    
+ 1     8 Agosto    
+ 2    10 Octubre   
+ 3     3 Marzo     
  4     4 Abril     
- 5    11 Noviembre 
- 6     9 Septiembre
- 7     1 Enero     
+ 5     2 Febrero   
+ 6     7 Julio     
+ 7     7 Julio     
  8    12 Diciembre 
- 9    12 Diciembre 
-10    12 Diciembre </code></pre>
+ 9     3 Marzo     
+10     8 Agosto    </code></pre>
 </div>
 </div>
 </div>
@@ -1934,16 +1966,16 @@
 <pre><code># A tibble: 10 x 2
    distancia tramo  
        &lt;dbl&gt; &lt;chr&gt;  
- 1       200 corto  
- 2       764 corto  
- 3       431 corto  
- 4       963 corto  
- 5      1389 mediano
- 6      1008 mediano
- 7       292 corto  
- 8       711 corto  
- 9       277 corto  
-10       738 corto  </code></pre>
+ 1      2565 mediano
+ 2       733 corto  
+ 3       214 corto  
+ 4       277 corto  
+ 5       733 corto  
+ 6       229 corto  
+ 7       529 corto  
+ 8      1065 mediano
+ 9      1389 mediano
+10      1504 mediano</code></pre>
 </div>
 </div>
 </div>

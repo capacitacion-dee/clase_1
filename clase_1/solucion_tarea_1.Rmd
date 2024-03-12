@@ -1,0 +1,194 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+<!-- Beginning title page -->
+
+---
+title: ""
+output:
+  pdf_document:
+    number_sections: TRUE
+geometry: "left = 2.5cm, right = 2cm, top = 2cm, bottom = 2cm"
+fontsize: 11pt
+header-includes:
+  - \usepackage{graphicx}
+  - \usepackage{float}
+  - \usepackage{sectsty}
+  - \usepackage{paralist}
+  - \usepackage{setspace}
+  - \usepackage{fancyhdr}
+  - \usepackage{lastpage}
+  - \usepackage{dcolumn}
+  - \usepackage[nottoc, numbib]{tocbibind}
+  - \usepackage{xcolor}
+  - \usepackage{listings}
+  - \lstset{
+      language=R,
+      basicstyle=\ttfamily,
+      commentstyle=\color{red}\itshape,
+      frame=none
+    }
+---
+
+```{r setup, include=FALSE}
+library(knitr)
+opts_chunk$set(echo = TRUE)
+options(tinytex.verbose = TRUE)
+```
+
+\allsectionsfont{\centering}
+\subsectionfont{\raggedright}
+\subsubsectionfont{\raggedright}
+
+\pagenumbering{gobble}
+
+\begin{centering}
+
+\vspace{3cm}
+
+\vspace{1.5cm}
+
+\Large
+{\textbf Instituto Nacional de Estadisticas}
+
+\Large
+{\textbf Subdireccion Tecnica}
+
+\vspace{1.5 cm}
+
+\doublespacing
+{\Huge \textbf Capacitación en R y herramientas de productividad - Nivel básico}
+
+\vspace{.5 cm}
+
+{\Huge \textbf Solución Tarea 1}
+
+\vspace{1.5 cm}
+
+\end{centering}
+
+<!-- End title page -->
+
+Para esta tarea utilizaremos la serie mensual del Índice de Actividad del Comercio (IAC), el cual compila la información de las ventas a precios constantes de las empresas clasificadas en esta actividad y que se encuentran instaladas en el país. Este índice entrega, mediante el análisis de variaciones interanuales y mensuales, una aproximación de la evolución mensual de la actividad del comercio.
+
+El IAC puede ser segmentado en tres grandes divisiones: la división 45 abarca al comercio al por mayor y al por menor y reparación de vehículos automotores y motocicletas; división 46 incluye al comercio al por mayor, excepto el de vehículos automotores y motocicletas; y la división 47 que engloba al comercio al por menor, excepto el de vehículos automotores y motocicletas.
+
+## Ejercicio 1
+
+A continuación, importe los paquetes `readr` y `dplyr` y luego cargue la base de datos `iac_division.rds` utilizando la función `read_rds()` del paquete `readr`. Asigne este dataframe a la variable `iac_division`.
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+library(readr)
+library(dplyr)
+
+iac_division <- read_rds("iac_division.rds")
+
+```
+## Ejercicio 2
+
+Utilice la función `head(iac_division, 10)` para observar las 10 primeras filas del dataframe. ¿Qué puede decir de la base?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+head(iac_division, 10)
+```
+
+Podemos observar que la base contiene la serie mensual del IAC general y de las divisiones 45, 46 y 47.
+
+## Ejercicio 3
+
+¿Cuál es la dimensión del dataframe?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+dim(iac_division)
+```
+
+La dimensión del dataframe son 72 observaciones y 6 variables.
+
+## Ejercicio 4
+
+Utilizando la función `str()` obtenga la estructura del dataframe. ¿Qué tipo de datos contiene?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+str(iac_division)
+```
+En este caso podemos observar que toda las variables son numéricas.
+
+## Ejercicio 5
+
+Cuente los valores únicos de la variable `anio`.
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+count(iac_division, anio)
+
+```
+Cada año tiene 12 observaciones, es decir, abarcan los meses de enero a diciembre.
+
+## Ejercicio 6
+
+Seleccione las columnas `anio`, `mes` y `iac_general`. Llame al objeto `valores_iac_general`. ¿Cuál es la clase de `valores_iac_general`?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+valores_iac_general <- iac_division[,c("anio","mes_num","iac_general")]
+class(valores_iac_general)
+
+```
+
+Podemos ver que la clase de `valores_iac_general` es otro `data.frame`.
+
+## Ejercicio 7
+
+Utilizando el dataframe `iac_division` responda las siguientes preguntas:
+
+- ¿En qué fecha el IAC general fue menor a 80?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+iac_division[iac_division$iac_general<80, ]
+
+```
+El IAC general fue menor a 80 en abril del 2020.
+
+- ¿En qué fecha o fechas el IAC de la división 45 fue menor a 60?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+iac_division[iac_division$iac_div_45<60, ]
+
+```
+
+El IAC de la división 45 fue menor a 60 en abril y mayo del 2020.
+
+- ¿Cuál fue el IAC general en el mes de diciembre del 2023?
+
+```{r}
+#| echo: TRUE
+#| eval: TRUE
+
+iac_division[iac_division$mes_num==12 & iac_division$anio==2023, ]
+
+```
+En diciembre del 2023 el IAC general fue de 138.

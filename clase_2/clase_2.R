@@ -1,6 +1,7 @@
 
 # Instalar paquetes
 install.packages("tidyverse")
+install.packages("readxl")
 
 # Cargar paquetes
 library(tidyverse)

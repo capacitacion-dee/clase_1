@@ -270,6 +270,8 @@ v2
 
 ::: notes
 - En R, así como en la mayoría de los lenguajes de programación, uno de los objetos más usuales para almacenar información son los vectores
+- En este ejemplo estamos creando un vector numérico llamado v1 utilizando el operador c() que se utiliza para combinar elementos en un vector.
+- En el segundo ejemplo estamos creando un vector llamado v2 que contiene una secuencia de números enteros que van desde el 1 al hasta al 100 utilizando el operador : que crea una secuencia de números consecutivos.
 :::
 
 ## Vectores
@@ -327,6 +329,9 @@ nuevo <- c(v1,v3)
 nuevo
 ```
 
+::: notes
+- Utilizamos la función c nuevamente para concatenar lo elementos de v1 y v3 en el nuevo vector “nuevo”. Esto significa que el vector nuevo contendrá todos los elementos de v1 seguidos por todos los elementos de v3. 
+:::
 ## Vectores
 
 ::: {.incremental .small-par}
@@ -358,6 +363,9 @@ v1
 v1[2]
 ```
 
+::: notes
+- En este ejemplo estamos accediendo al segundo elemento del vector v1 que correspone al valor 1. Esto se hace escribiendo el número de la posición dentro de los paréntesis cuadrado.
+:::
 ## Vectores
 
 ```{r}
@@ -379,6 +387,7 @@ v1[3:5]
 ```
 
 ::: notes
+- Podemos obtener más de un elemento como en el primer ejemplo donde estamos retornando los elementos de las casillas 1 y 4 usando la función c(), es decir, estamos declarando un vector dentro de otro vector
 - El segundo ejemplo selecciona los elementos en las posiciones 3, 4 y 5 del vector v1
 - El tercero hace lo mismo pero utilizando el operador : que genera una secuencia de números consecutivos
 :::
@@ -414,6 +423,8 @@ v1
 
 ::: notes
 - El primer ejemplo toma el vector v1 y devuelve un nuevo vector que incluye solo aquellos elementos que son mayores que 3.
+- También podemos acceder a elementos de un vector usando los nombres de cada uno de sus elementos usando las comillas. Por ejemplo si queremos retornar el tercer elemento de v1 especificamos su nombre dentro de los paréntesis corchete, que en este caso es "n3"
+- Para cambiar un valor dentro de un vector primero designamos la posición que queremos cambiar y luego usando la flechita indicamos el valor para reemplazar
 :::
 
 ## Ejercicio 1
@@ -570,9 +581,12 @@ df
 ```
 
 ::: notes
+- Un dataframe se asemeja a una tabla o una hoja de cálculo en la que cada columna representa una variable y cada fila una observación
 - Para el trabajo de dataframes usaremos el paquete dplyr que es comunmente usado para operaciones de manipulación de datos
-- Un dataframe está compuesto por vectores
-- En general, las filas en un data frame representan casos, individuos u observaciones, mientras que las columnas representan atributos, rasgos o variables
+- Primero debemos instalar el paquete dplyr usando la función install.packages. Luego cargamos el paquete usando la función library. 
+- No es necesario instalar el paquete cada vez que iniciemos sesión pero sí es necesario cargarlo
+- En el siguiente ejemplo, vamos a crear un dataframe usando tres vectores. El vector n1 contiene los número del 1 al 5, let es un vector del tipo character que contiene las letras A, A, B, C y B y el vector log contiene elementos del tipo logic.
+Usando la función data.frame podemos crear un dataframe a partir de estos vectores. En este ejemplo lo vamos a llamar df, el cual va a tener tres columnas: llamaremos num a la columna que contiene el vector n1, letra la columna que contiene el vector let y bool al vector que contiene los elementos tipo logic.
 :::
 
 ## Dataframes
@@ -627,7 +641,6 @@ La función summary() en R es una herramienta muy útil porque proporciona un re
 #| eval: TRUE
 # Por posición 
 df[,3]
-class(df[,3])
 
 # Por nombre 
 df[,"letra"]
@@ -635,6 +648,15 @@ df[,"letra"]
 # Por $ 
 df$letra
 ```
+
+::: notes
+- En R, podemos acceder a las columnas de dataframe utilizando su posición mediante la notación de corchetes.
+- Dado que los dataframes tienen dos dimensiones usamos la coma para especificar las filas y las columnas. El lado izquiero de la coma representa las filas y el derecho las columnas,.
+- En el ejemplo queremos obtener la columna tres de df. Si no ponemos nada en el lado de las filas entonces R entiende que queremos tomar todas las filas y el 3 después de la coma indica que queremos la tercera columna
+- Usando la misma lógica anterior podemos acceder a una columna mediante su nombre. Por ejemplo, queremos obtener solamente la columna “letra"
+- También podemos acceder a las columnas con el signo peso que es el operador de acceso a las columnas en R
+:::
+
 ## Dataframes
 ::: {.incremental .small-par}
 - Acceso a filas
@@ -666,16 +688,32 @@ df[1:2, c("letra", "bool")]
 
 ```
 
+::: notes
+- Para acceder a las filas de un dataframe indicamos en el lado izquierdo de la coma la posición que deseamos. En el ejemplo, le estamos indicando a R que queremos la fila dos de df junto a todas sus columnas
+- En el segundo ejemplo le estamos diciendo a R que queremos la segunda fila y la segunda columna
+- Podemos acceder a varias columnas y filas. Por ejemplo, queremos las dos primeras filas de la columna “bool”
+- En el siguiente ejemplo estamos tomando las dos primeras filas y las columnas letra y bool.
+:::
+
 ## Dataframes
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
 # Según condición
 df[df$num<3, ]
+# Otra forma...
 df[df[1]<3, ]
 # Según varias condiciones
 df[df$num<3 & df$letra=="A",]
 ```
+
+::: notes
+- Podemos acceder a filas según condiciones
+- En el primer ejemplo estamos seleccionando aquellas filas donde la variable num sea menor que tres. Acá podemos usar el operador $ o los paréntesis corchete
+- En el siguiente ejemplo vemos que podemos acceder a filas según varias condiciones. Por ejemplo, queremos que R nos retorne las filas de df donde la variable num sea menor que 3 y la variable letra sea igual a "A"
+
+
+:::
 
 ## Ejercicio 2
 
@@ -685,6 +723,10 @@ df[df$num<3 & df$letra=="A",]
 
 - Para obtener los datos hay que instalar y cargar la siguiente librería:
 
+:::
+
+. . .
+
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
@@ -692,7 +734,13 @@ install.packages("datos")
 library(datos)
 ```
 
+::: {.incremental .small-par}
+
 - Guarde el dataframe "encuesta" como "datos".
+
+:::
+
+. . .
 
 ```{r}
 #| echo: TRUE
@@ -700,7 +748,6 @@ library(datos)
 datos <- encuesta
 ```
 
-:::
 
 ## Ejercicio 2
 
@@ -708,23 +755,19 @@ datos <- encuesta
 
 1. ¿Cuál es la dimensión del dataframe?
 
-2. ¿Cuántas filas tiene?
+2. ¿Cuáles son los nombres de las columnas?
 
-3. ¿Cuántas columnas?
+3. ¿Qué tipo de datos tiene? **Nota:** "Factor" es un tipo de dato que almacena variables categóricas o cuantitativas con un número finito de valores o niveles
 
-4. ¿Cuáles son los nombres de las columnas?
+4. ¿Cuáles son los valores únicos de la variable estado_civil?
 
-5. ¿Qué tipo de datos tiene? Nota: "Factor" es un tipo de dato que almacena variables categóricas o cuantitativas con un número finito de valores o niveles
+5. ¿Cuántos datos existen para cada valor único de la variable estado_civil?
 
-6. ¿Cuáles son los valores únicos de la variable estado_civil?
+6. Seleccione las columnas "anio", "edad" y "religion"
 
-7. ¿Cuántos datos existen para cada valor único?
+7. Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
 
-8. Seleccione las columnas "anio", "edad" y "religion"
-
-9. Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
-
-10. Seleccione las filas donde horas_tv es menor a 5
+8. Seleccione las filas donde horas_tv es menor a 5
 
 :::
 
@@ -746,35 +789,7 @@ dim(datos)
 
 ::: {.incremental .small-par}
 
-2. ¿Cuántas filas tiene?
-
-:::
-
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-nrow(datos)
-```
-. . .
-
-::: {.incremental .small-par}
-
-3. ¿Cuántas columnas?
-
-:::
-
-. . .
-```{r}
-#| echo: TRUE
-#| eval: TRUE
-ncol(datos)
-```
-. . .
-
-::: {.incremental .small-par}
-
-4. ¿Cuáles son los nombres de las columnas?
+2. ¿Cuáles son los nombres de las columnas?
 
 :::
 
@@ -786,11 +801,9 @@ names(datos)
 ```
 . . .
 
-## Solución ejercicio 2
-
 ::: {.incremental .small-par}
 
-5. ¿Qué tipo de datos tiene? NOTA: int es la abreviatura para "integer" que significa número entero y "Factor" es un tipo de dato que almacena variables categóricas o cuantitativas con un número finito de valores o niveles
+3. ¿Qué tipo de datos tiene? NOTA: int es la abreviatura para "integer" que significa número entero y "Factor" es un tipo de dato que almacena variables categóricas o cuantitativas con un número finito de valores o niveles
 
 :::
 
@@ -806,7 +819,7 @@ str(datos)
 
 ::: {.incremental .small-par}
 
-6. ¿Cuáles son los valores únicos de la variable estado_civil?
+4. ¿Cuáles son los valores únicos de la variable estado_civil?
 
 :::
 
@@ -822,7 +835,7 @@ distinct(datos, estado_civil)
 
 ::: {.incremental .small-par}
 
-7. ¿Cuántos datos existen para cada valor único de estado_civil?
+5. ¿Cuántos datos existen para cada valor único de estado_civil?
 
 :::
 
@@ -838,7 +851,7 @@ count(datos, estado_civil)
 
 ::: {.incremental .small-par}
 
-8. Seleccione las columnas "anio", "edad" y "religion"
+6. Seleccione las columnas "anio", "edad" y "religion"
 
 :::
 
@@ -854,7 +867,7 @@ datos[, c("anio", "edad", "religion")]
 
 ::: {.incremental .small-par}
 
-9. Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
+7. Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
 
 :::
 
@@ -870,7 +883,7 @@ datos[1:10, c("anio", "edad", "religion")]
 
 ::: {.incremental .small-par}
 
-10. Seleccione las filas donde horas_tv es menor a 5
+8. Seleccione las filas donde horas_tv es menor a 5
 
 :::
 
@@ -895,6 +908,8 @@ datos[datos$horas_tv < 5,]
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
+# install.packages("readxl")
+# install.packages("readr")
 library(readxl)
 library(readr)
 
@@ -911,41 +926,39 @@ cine <- read_csv("data/datosCine.csv")
 ```
 
 ::: notes
-- El paquete readxl permite importar hojas de un archivo excel
-- Uno simplemente escribe la ruta donde está el archivo
-- También tiene otras funciones tales como sheet para especificar la hoja que queremos importar, si no lo establecemos toma la primera hoja por default
-- Con range podemos decirle el rango de la tabla que queremos que tome
-- col_types nos permite establecer el tipo de variable de las columnas por ejemplo texto o numeric
+- El paquete readxl permite importar hojas de un archivo excel y readr permite importar archivos de texto plano como csv
+- Para cargar un archivo con readxl o readr uno simplemente escribe la ruta donde está el archivo
+- readxl también tiene otros argumentos. Por ejemplo, queremos cargar el excel que coniene la serie del IAC desde enero de 2018 hasta la fecha. Acá podemos especificar la hoja que queremos importar usando el argumento sheet (si no lo hacemos toma la primera hoja por default). También podemos decirle el rango de la tabla que queremos que tome usando el argumento range y con col_types establecemos el tipo de variable de las columnas, por ejemplo texto o nueric
 - Los archivos de texto plano como los csv se pueden importar usando read_csv del paquete readr
 :::
 
 ## Tarea 1
 
 ::: {.incremental .small-par}
+- Para esta tarea utilizaremos la serie mensual del Índice de Actividad del Comercio (IAC), el cual compila la información de las ventas a precios constantes de las empresas clasificadas en esta actividad y que se encuentran instaladas en el país. Este índice entrega, mediante el análisis de variaciones interanuales y mensuales, una aproximación de la evolución mensual de la actividad del comercio.
+- El IAC puede ser segmentado en tres grandes divisiones: la división 45 abarca al comercio al por mayor y al por menor y reparación de vehículos automotores y motocicletas; división 46 incluye al comercio al por mayor, excepto el de vehículos automotores y motocicletas; y la división 47 que engloba al comercio al por menor, excepto el de vehículos automotores y motocicletas.
+:::
 
-- Carque la base "iac_division.rds" usando la función read_rds del paquete readr. Llame al dataframe iac_division
-- Utilize la funcion head(iac_division, 10) para observar las 10 primeras filas del dataframe
-- ¿Qué puede decir de la base?
-- ¿Cuál es la dimensión del dataframe?
-- ¿Cuál es la estructura de la base y qué tipo de datos contiene?
--  Cuente los valores únicos de la variable "anio"
-- Substaiga la columna "iac_general" y llame al objeto "valores"
-- ¿Cuál es la clase de "valores"?
+## Tarea 1
 
+::: {.incremental .small-par}
+1. Carque la base "iac_division.rds" usando la función read_rds() del paquete readr. Llame al dataframe iac_division
+2. Utilice la funcion head(iac_division, 10) para observar las 10 primeras filas del dataframe
+3. ¿Qué puede decir de la base?
+4. ¿Cuál es la dimensión del dataframe?
+5. ¿Cuál es la estructura de la base y qué tipo de datos contiene?
+6. Cuente los valores únicos de la variable "anio"
+7. Substraiga la columna "iac_general" y llame al objeto "valores". ¿Cuál es la clase de "valores"?
 :::
 
 ::: {.incremental .small-par}
-
 Utilizando el dataframe iac_division responda: 
-
 :::
 
 ::: {.incremental .small-par}
-
-- ¿En qué fecha el IAC fue menor a 80?
-- ¿En qué fecha o fechas el IAC de la división 45 fue menor a 60?
-- ¿Cuál fue el IAC en el mes de diciembre del 2023?
-
+8. ¿En qué fecha el IAC fue menor a 80?
+9. ¿En qué fecha o fechas el IAC de la división 45 fue menor a 60?
+10. ¿Cuál fue el IAC en el mes de diciembre del 2023?
 :::
 
 #

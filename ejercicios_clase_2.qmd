@@ -81,6 +81,7 @@ library(dplyr)
 ```{r}
 #| echo: TRUE
 #| eval: TRUE
+install.packages("readxl")
 library(readxl)
 vuelos <- read_excel("clase_2/vuelos.xlsx")
 vuelos
@@ -99,6 +100,7 @@ vuelos %>% head()
 ```
 ::: notes
 - Básicamente, lo que hace es tomar el resultado de una expresión o función y pasarlo como el primer argumento a la siguiente función. Esto permite encadenar varias operaciones de manera más clara y concisa.
+- En el ejemplo estamos aplicando la función head al dataframe vuelos
 :::
 
 ## Operador pipe %>% 
@@ -112,6 +114,10 @@ vuelos %>% head()
 head(vuelos)
 ```
 
+::: notes
+- Lo anterior es lo mismo que insertar el dataframe vuelos dentro de la función head
+:::
+
 ## Operador pipe %>% 
 ::: {.incremental .small-par}
 - Veamos otro ejemplo
@@ -123,6 +129,10 @@ head(vuelos)
 #| eval: TRUE
 vuelos %>% count(aerolinea)
 ```
+
+::: notes
+- para esto aplicamos la función count a vuelos indicando el segundo argumento que es la variable que queremos contar que en este caso es aerolinea
+:::
 
 ## Operador pipe %>% 
 ::: {.incremental .small-par}

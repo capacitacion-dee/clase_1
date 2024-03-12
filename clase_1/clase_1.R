@@ -48,9 +48,7 @@ verdadero | falso
 
 # Vectores ----------------------------------------------------------------
 
-# En R, así como en la mayoría de los lenguajes de programación, uno de los objetos más usuales para 
-# almacenar información son los vectores, los que corresponden a arreglos unidimensionales que almacenan 
-# un mismo tipo de dato en cada una de sus entradas.
+# Corresponden a arreglos unidimensionales que almacenan un mismo tipo de dato en cada una de sus entradas.
 # Todo vector en R se puede declarar con la letra "c" seguido de los elementos que lo componen entre 
 # paréntesis y separados por comas.
 
@@ -100,7 +98,7 @@ v1[!(v1 > 3)] # Estamos negando la expresión (v1 > 3)
 
 # Por nombre
 v1["n3"]  # Misma idea que la anterior, pero indicando el nombre de la casilla (con comillas)
-v1[c("n1","n2")]  # En el caso de requerir más de una celda. Se incluye un vector de nombres.
+v1[c("n1","n2")]  # En el caso de requerir más de una celda se incluye un vector de nombres.
 
 # Ej: Queremos cambiar el elmento de posición 3, por un -999
 v1[3] <- -999
@@ -116,13 +114,6 @@ v1
 # De mi_vector_combinado substraiga los elementos 1 y 10
 # Cambie el valor del elemento de la posición 10 por "z"
 
-mi_vector <- 5:10
-mi_vector2 <- c("a","b","c","d","e")
-mi_vector_combinado <- c(mi_vector, mi_vector2)
-class(mi_vector_combinado)
-length(mi_vector_combinado)
-mi_vector_combinado[c(1,10)]
-mi_vector_combinado[10] <- "z"
 
 
 # Dataframes --------------------------------------------------------------
@@ -187,7 +178,7 @@ class(df[,3])
 df[,"letra"]
 
 # Por $ 
-df$letra # Es lo mismo que [[]]
+df$letra
 
 # Acceso a filas
 
@@ -224,24 +215,11 @@ datos <- encuesta
 # NOTA: "Factor" es un tipo de dato que almacena variables
 # categóricas o cuantitativas con un número finito de valores o niveles
 # Cuáles son los valores únicos de la variable estado_civil?
-# Cuántos datos existen para cada valor único
+# Cuántos datos existen para cada valor único de estado civil?
 # Seleccione las columnas "anio", "edad" y "religion"
 # Seleccione las mismas columnas pero ahora sólo las 10 primeras filas
 # Seleccione las filas donde horas_tv es menor a 5
 
-
-dim(datos)
-nrow(datos)
-ncol(datos)
-names(datos)
-str(datos)
-distinct(datos, estado_civil)
-count(datos, estado_civil)
-datos[, c("anio", "edad", "religion")]
-datos[1:10, c("anio", "edad", "religion")]
-datos[datos$horas_tv < 5,]
-# Otra forma
-datos[datos[,"horas_tv"]<5,]
 
 # Importación de datos ----------------------------------------------------
 install.packages("readxl")
@@ -255,6 +233,7 @@ vuelos <- read_excel("data/vuelos.xlsx")
 # Más argumentos...
 iac <- read_excel("data/descargas/series-mensuales-desde-enero-de-2018-a-la-fecha.xls", sheet = 2, skip = 5,
                   col_types = c("text", "text", rep("numeric", 4)))
+# NOTA: rep replica valores del primer argumento n-veces
 
 # Importe el archivo csv "datosCine.csv" dentro de la carpeta "data" y nómbrela cine
 cine <- read_csv("data/datosCine.csv")
